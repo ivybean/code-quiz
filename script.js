@@ -1,14 +1,16 @@
 var startButton = document.getElementById("start-btn")
 var nextButton = document.getElementById("next-btn")
 var questionContainer = document.getElementById("question-container")
+let randomQuestions, questionNumber
 var question = document.getElementById("question")
 var answerButton = document.getElementById('answer-buttons')
 var placeButtons = document.getElementById('pbtn')
-var questionNumber = 0
+var totalScore = 0
 
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
-  questionNumber++
+  questionNumber+
+  answerButton.classList.add('hide')
   nextQuestion()
 })
 
@@ -16,12 +18,16 @@ function startGame(){
   startButton.classList.add('hide')
   questionContainer.classList.remove("hide")
   question.classList.remove("hide")
-  answerButton.classList.remove("hide")
+  randomQuestions = questionArray.sort(() => Math.random() - .5)
+  questionNumber = 0
+  // answerButton.classList.remove("hide")
   nextQuestion()
 }
 
 function nextQuestion(){
+  clearAnswers()
   askQuestion(questionArray[questionNumber])
+  answerButton.classList.remove("hide")
 }
 
 function askQuestion(questionText){
@@ -38,6 +44,13 @@ function askQuestion(questionText){
   })
 }
 
+function clearAnswers(){
+  nextButton.classList.add('hide')
+  while (answerButton.firstChild){
+    answerButton.removeChild (answerButton.firstChild)
+  }
+}
+
 function answerQuestion(e){
   var choosenAnswer = e.target
   var correct = choosenAnswer.dataset.correct
@@ -52,6 +65,8 @@ function correctClass(element, correct){
   clearClass(element)
   if(correct) {
     element.classList.add('correct')
+    totalScore++
+    console.log(totalScore)
   } else{
     element.classList.add('incorrect')
   }
@@ -59,7 +74,7 @@ function correctClass(element, correct){
 
 
 function clearClass(element){
-  
+
 }
 
 var questionArray = [
@@ -86,8 +101,8 @@ var questionArray = [
     answers : [
       { text: "numbers and strings", correct: false }, 
       { text: "other arrays", correct: false },
-      { text: "booleans", correct: true },
-      { text: "all of the above", correct: false }
+      { text: "booleans", correct: false },
+      { text: "all of the above", correct: true }
       ]
     },
   {
@@ -104,8 +119,8 @@ var questionArray = [
     answers : [
       { text: "JavaScript", correct: false }, 
       { text: "terminal/bash", correct: false },
-      { text: "for loops", correct: true },
-      { text: "console.log", correct: false }
+      { text: "for loops", correct: false },
+      { text: "console.log", correct: true }
       ]
     }    
 ]

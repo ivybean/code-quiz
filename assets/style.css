@@ -10,6 +10,10 @@ body{
   background-color: hsl(150, 100%, 30%);
 }
 
+.container{
+  width: 800px;
+  max-width: 80%;
+}
 .card{
   margin-left: 0;
   width: 100%;
