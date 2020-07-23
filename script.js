@@ -19,14 +19,18 @@ function startGame(){
   questionContainer.classList.remove("hide")
   question.classList.remove("hide")
   questionNumber = 0
-  // answerButton.classList.remove("hide")
   nextQuestion()
 }
 
 function nextQuestion(){
-  clearAnswers()
-  askQuestion(questionArray[questionNumber])
-  answerButton.classList.remove("hide")
+  console.log(questionNumber)
+  if (questionNumber > 4){
+    restartGame()
+  }else {
+    clearAnswers()
+    askQuestion(questionArray[questionNumber])
+    answerButton.classList.remove("hide")
+  }
 }
 
 function askQuestion(questionText){
@@ -35,11 +39,8 @@ function askQuestion(questionText){
     var button = document.createElement('button')
     button.innerText = answer.text
     button.classList.add('btn')
-      if (answer.correct) {
-        button.dataset.correct = answer.correct
-      }
-      button.addEventListener('click', answerQuestion) 
-      answerButton.appendChild(button)
+    button.addEventListener('click', answerQuestion) 
+    answerButton.appendChild(button)
   })
 }
 
@@ -51,30 +52,18 @@ function clearAnswers(){
 }
 
 function answerQuestion(e){
-  var choosenAnswer = e.target
-  var correct = choosenAnswer.dataset.correct
-  // correctClass(document.body, correct)
-  // Array.from(answerButton.children).forEach(button => {
-  //   correctClass(button, button.dataset.correct)
-  // })
   nextButton.classList.remove('hide')
   questionNumber++
 }
 
-function correctClass(element, correct){
-  clearClass(element)
-  if(correct) {
-    element.classList.add('correct')
-    totalScore++
-    console.log(totalScore)
-  } else{
-    element.classList.add('incorrect')
-  }
-}
-
-
-function clearClass(element){
-
+function restartGame(){
+  nextButton.classList.add('hide')
+  question.classList.add('hide')
+  var restartButton = document.createElement('button')
+  restartButton.classList.add('btn')
+  restartButton.innerText = ("Restart")
+  questionNumber = 0
+  // restartButton.addEventListener('click', nextQuestion())
 }
 
 var questionArray = [
