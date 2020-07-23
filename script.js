@@ -18,7 +18,6 @@ function startGame(){
   startButton.classList.add('hide')
   questionContainer.classList.remove("hide")
   question.classList.remove("hide")
-  randomQuestions = questionArray.sort(() => Math.random() - .5)
   questionNumber = 0
   // answerButton.classList.remove("hide")
   nextQuestion()
@@ -54,11 +53,12 @@ function clearAnswers(){
 function answerQuestion(e){
   var choosenAnswer = e.target
   var correct = choosenAnswer.dataset.correct
-  correctClass(document.body, correct)
-  Array.from(answerButton.children).forEach(button => {
-    correctClass(button, button.dataset.correct)
-  })
+  // correctClass(document.body, correct)
+  // Array.from(answerButton.children).forEach(button => {
+  //   correctClass(button, button.dataset.correct)
+  // })
   nextButton.classList.remove('hide')
+  questionNumber++
 }
 
 function correctClass(element, correct){
